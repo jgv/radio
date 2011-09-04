@@ -11,14 +11,14 @@
 
     <?php
 
-      if (file_exists('songs.xml')) {
-        $xml = simplexml_load_file("songs.xml");
-        foreach($xml->children() as $child) {
-          echo "<source src='{$child}' />";    
-        }
-      } else {
-        echo 'no songs yet';
-      }      
+    if (file_exists('songs.xml')) {
+      $xml = simplexml_load_file("songs.xml");
+      foreach($xml as $song) {
+        echo "<source src='{$song->url}' />";    
+      }
+    } else {
+      echo 'no songs yet';
+    }      
       
     ?>
     </audio>

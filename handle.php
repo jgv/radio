@@ -2,30 +2,27 @@
 
 require_once('getid3/getid3.php');
 
-$data = htmlspecialchars($_POST['song']);
-
-
-$filename = tempnam('/tmp','getid3');
-if (file_put_contents($filename, file_get_contents($data, false, null, 0, 32768))) {
-  $getID3 = new getID3;
-  $ThisFileInfo = $getID3->analyze($filename);
-  unlink($filename);
-}
-
-$songs = array($ThisFileInfo['tags']['id3v2']);
+$data = $_POST['song'];
 
 $file_handle = fopen('songs.xml','w+');
 $content = '<?xml version="1.0"?>
 <songs>';
-foreach ($songs as $song) {
-  $content .= "\n<artist>".$song['artist'][0]."</artist>\n
-<url>".$data."</url>\n"
-    ;
+
+foreach ($data as $uri) {
+  $filename = tempnam('/tmp','getid3');
+  if (file_put_contents($filename, file_get_contents($uri, false, null, 0, 32768))) {
+    $getID3 = new getID3;
+    $song = $getID3->analyze($filename);
+    $content .= "<song>\n<artist>".$song['tags']['id3v2']['artist'][0]."</artist>
+<title>".$song['tags']['id3v2']['title'][0]."</title>
+<url>".$uri."</url>\n</song>";
+    unlink($filename);
+  }
 }
+
 $content .="</songs>";
 fwrite($file_handle,$content);
 fclose($file_handle);
 
-header("Location: http://google.com");
 
 ?>

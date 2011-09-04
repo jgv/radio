@@ -18,11 +18,17 @@ require_once('authenticate.php');
 <?php 
   if (file_exists('songs.xml')) {
     $xml = simplexml_load_file("songs.xml");
-    foreach($xml->children() as $child) {
-      echo "<input name='song[]' value='{$child}'>";
+
+    foreach ($xml as $song) {
+      echo $song->uri;
+      echo "<input name='song[]' value='{$song->url}'>";
+    }
+
+    foreach($xml->children()->song as $song) {
+
     }
   } else {
-    echo '<input name="song" />';
+    echo '<input name="song[]" />';
   }
 ?>
       <input type="submit" value="Submit" />
