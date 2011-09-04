@@ -7,20 +7,18 @@
   <body>
     
     <h1>Radio</h1>
-    <audio controls preload='auto' autobuffer>
 
     <?php
-
     if (file_exists('songs.xml')) {
+      echo "<audio controls preload='auto' autobuffer>";
       $xml = simplexml_load_file("songs.xml");
       foreach($xml as $song) {
         echo "<source src='{$song->url}' />";    
       }
+      echo "</audio>";
     } else {
       echo 'no songs yet';
-    }      
-      
+    }            
     ?>
-    </audio>
   </body>
 </html>
