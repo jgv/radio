@@ -10,10 +10,16 @@
     <audio controls preload='auto' autobuffer>
 
     <?php
-      $xml = simplexml_load_file("songs.xml");
-      foreach($xml->children() as $child) {
-        echo "<source src='{$child}' />";    
-      }
+
+      if (file_exists('songs.xml')) {
+        $xml = simplexml_load_file("songs.xml");
+        foreach($xml->children() as $child) {
+          echo "<source src='{$child}' />";    
+        }
+      } else {
+        echo 'no songs yet';
+      }      
+      
     ?>
     </audio>
   </body>
