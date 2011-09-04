@@ -18,14 +18,9 @@ require_once('authenticate.php');
 <?php 
   if (file_exists('songs.xml')) {
     $xml = simplexml_load_file("songs.xml");
-
     foreach ($xml as $song) {
       echo $song->uri;
-      echo "<input name='song[]' value='{$song->url}'>";
-    }
-
-    foreach($xml->children()->song as $song) {
-
+      echo "<input name='song[]' value='{$song->url}'>";      
     }
   } else {
     echo '<input name="song[]" />';
@@ -33,7 +28,7 @@ require_once('authenticate.php');
 ?>
       <input type="submit" value="Submit" />
     </form>
-    <button id="add-song">      
+    <button id="add-song">+</button>
     <script>
       window.onload = (function() {
         var trigger = document.getElementById('add-song');
