@@ -9,7 +9,7 @@
     <h1>Radio</h1>
 
     <?php
-    if (file_exists('songs.xml')) {
+    if (file_exists('db/songs.xml')) {
       echo "<audio controls preload='auto' autobuffer>";
       $xml = simplexml_load_file("songs.xml");
       foreach($xml as $song) {

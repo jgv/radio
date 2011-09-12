@@ -1,6 +1,6 @@
 <?php
 
-$credentials = new User($my_username, $my_password);
+$credentials = new User(MY_USERNAME, MY_PASSWORD);
 
 function pc_validate($user,$pass) {
   global $credentials;

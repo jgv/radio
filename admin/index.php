@@ -1,10 +1,7 @@
 <?php
 
-$my_username = 'test';
-$my_password = 'test';
-
-require_once('secret.php');
-require_once('authenticate.php');
+$handler = '../lib/handle.php';
+$xmlPath = '../db/songs.xml';
 
 ?>
 
@@ -14,13 +11,14 @@ require_once('authenticate.php');
     <meta charset='UTF-8' />
   </head>
   <body>
-    <form action="handle.php" method="post" id="song-form">
+    <form action="<?php echo $handler ?>" method="post" id="song-form">
 <?php 
-  if (file_exists('songs.xml')) {
-    $xml = simplexml_load_file("songs.xml");
+  if (file_exists($xmlPath)) {
+    $xml = simplexml_load_file($xmlPath);
     foreach ($xml as $song) {
-      echo $song->uri;
-      echo "<input name='song[]' value='{$song->url}'>";      
+      echo $song;
+      echo $song->url;
+      echo "<input name='song[]' value='{$song->url}'>\n";
     }
   } else {
     echo '<input name="song[]" />';
